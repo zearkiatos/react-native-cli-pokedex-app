@@ -14,7 +14,7 @@ const PokedexScreen = () => {
       pokemonList.push({
         id: pokemonData.id,
         name: pokemonData.name,
-        type: pokemonData.types[0].type.name,
+        types: pokemonData.types,
         order: pokemonData.order,
         image: pokemonData.sprites.other['official-artwork'].front_default,
       });
