@@ -23,4 +23,15 @@ const getPokemonByUrl = async url => {
   }
 };
 
-export {getPokemons, getPokemonByUrl};
+const getPokemonById = async id => {
+  try {
+    const url = `${config.POKEAPI.BASE_URL}/pokemon/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (ex) {
+    throw ex;
+  }
+};
+
+export {getPokemons, getPokemonByUrl, getPokemonById};
