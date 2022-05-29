@@ -1,14 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {getPokemons, getPokemonByUrl} from '../client/pokemonClient';
 import PokemonList from '../components/PokemonList';
 
 const PokedexScreen = () => {
   const [pokemons, setPokemons] = useState([]);
-  const pokemonList = [];
+  const [nextUrl, setNextUrl] = useState(null);
   const fetchPokemons = async () => {
-    const data = await getPokemons();
+    const data = await getPokemons(nextUrl);
+    setNextUrl(data.next);
+    const pokemonList = [];
     for await (let pokemon of data.results) {
       const pokemonData = await getPokemonByUrl(pokemon.url);
       pokemonList.push({
@@ -30,7 +31,11 @@ const PokedexScreen = () => {
   }, []);
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList
+        pokemons={pokemons}
+        fetchPokemons={fetchPokemons}
+        isNext={!!nextUrl}
+      />
     </SafeAreaView>
   );
 };
