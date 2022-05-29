@@ -1,14 +1,14 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, Text, StyleSheet} from 'react-native';
 
-const PokedexScreen = () => {
+const PokemonScreen = ({route, navigation}) => {
   return (
     <SafeAreaView>
-      <Text>Pokedex</Text>
+      <Text>Pokemon</Text>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default PokedexScreen;
+export default PokemonScreen;
