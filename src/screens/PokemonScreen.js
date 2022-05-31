@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {getPokemonById} from '../client/pokemonClient';
 import PokemonHeader from '../components/PokemonHeader';
+import Type from '../components/Type';
 
 const PokemonScreen = ({route: {params}, navigation}) => {
   const [pokemon, setPokemon] = useState(null);
@@ -27,6 +27,7 @@ const PokemonScreen = ({route: {params}, navigation}) => {
           image={pokemon.sprites.other['official-artwork'].front_default}
           types={pokemon.types}
         />
+        <Type types={pokemon.types} />
       </ScrollView>
     )
   );
