@@ -9,7 +9,7 @@ const PokedexNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Pokedex"
+        name="PokedexScreen"
         component={PokedexScreen}
         options={{
           title: '',
