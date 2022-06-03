@@ -6,12 +6,16 @@ import {
   Image,
   SafeAreaView,
   ImageBackground,
+  Platform,
+  Dimensions,
 } from 'react-native';
 import {capitalize} from 'lodash';
 import {
   getColorByPokemonType,
   getTextureByPokemonType,
 } from '../../utils/pokemonHelper';
+
+const screenWidth = Dimensions.get('window').width;
 
 const PokemonHeader = ({name, order, image, types}) => {
   const type = types[0].type.name;
@@ -36,45 +40,54 @@ const PokemonHeader = ({name, order, image, types}) => {
         borderRadius: 300 / 2,
         zIndex: -1,
       }}>
-      <View style={backgroundStyles(secondaryType, styles.circleShape)}></View>
+      <View style={backgroundStyles(secondaryType, styles.circleShape)} />
     </ImageBackground>
   );
   return (
     <Fragment>
-      <ImageBackground
-        source={texture}
-        style={styles.backgroundImage}
-        imageStyle={{
-          borderBottomEndRadius: 300,
-          borderBottomLeftRadius: 300,
-          transform: [
-            {
-              scaleX: 2,
-            },
-          ],
-        }}>
-        <View
-          style={backgroundStyles(type, {
-            backgroundColor: color,
-            ...styles.background,
-          })}
-        />
-      </ImageBackground>
-      <SafeAreaView style={styles.contentContainer}>
-        <View style={styles.header}>
-          <Text style={styles.name}>{capitalize(name)}</Text>
-          <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text>
-        </View>
-        <View style={styles.imageContainer}>
-          <Image source={{uri: image}} style={styles.image} />
-        </View>
-        {renderSecondaryType}
-      </SafeAreaView>
+      <View style={styles.container}>
+        <ImageBackground
+          source={texture}
+          style={styles.backgroundImage}
+          imageStyle={{
+            flex: 1,
+            borderBottomEndRadius: 300,
+            borderBottomLeftRadius: 300,
+            zIndex: -2,
+            width: '100%',
+            position: 'absolute',
+            transform: [
+              {
+                scaleX: 2,
+              },
+            ],
+          }}>
+          <View
+            style={backgroundStyles(type, {
+              backgroundColor: color,
+              ...styles.background,
+            })}
+          />
+        </ImageBackground>
+        <SafeAreaView style={styles.contentContainer}>
+          <View style={styles.header}>
+            <Text style={styles.name}>{capitalize(name)}</Text>
+            <Text style={styles.order}>#{`${order}`.padStart(3, 0)}</Text>
+          </View>
+          <View style={styles.imageContainer}>
+            <Image source={{uri: image}} style={styles.image} />
+          </View>
+          {renderSecondaryType}
+        </SafeAreaView>
+      </View>
     </Fragment>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: screenWidth,
+  },
   image: {
     top: -70,
     width: 300,
@@ -85,14 +98,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    top: 30,
+    top: Platform.OS === 'android' ? 70 : 30,
   },
   background: {
+    flex: 1,
     width: '100%',
     height: 450,
     borderBottomEndRadius: 300,
     borderBottomLeftRadius: 300,
     borderBottomRightRadius: 300,
+
     transform: [
       {
         scaleX: 2,
@@ -100,8 +115,8 @@ const styles = StyleSheet.create({
     ],
   },
   backgroundImage: {
+    flex: 1,
     width: '100%',
-    height: 450,
     position: 'absolute',
   },
   secondaryBackgroundImage: {
@@ -110,7 +125,7 @@ const styles = StyleSheet.create({
     height: 300,
     zIndex: -1,
     alignSelf: 'center',
-    top: 90,
+    top: Platform.OS === 'android' ? 70 : 90,
   },
   circleShape: {
     position: 'absolute',
@@ -134,7 +149,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 27,
-    top: -40,
+    top: Platform.OS == 'android' ? -5 : -40,
   },
   order: {
     color: 'white',

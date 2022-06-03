@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getPokemonById} from '../client/pokemonClient';
 import PokemonHeader from '../components/PokemonHeader';
 import Type from '../components/Type';
@@ -11,6 +12,20 @@ const PokemonScreen = ({route: {params}, navigation}) => {
     const data = await getPokemonById(params.id);
     setPokemon(data);
   };
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => null,
+      headerLeft: () => (
+        <Icon
+          name="arrow-left"
+          color="white"
+          size={20}
+          style={{marginLeft: 20}}
+          onPress={() => navigation.goBack()}
+        />
+      ),
+    });
+  }, [navigation, params]);
   useEffect(() => {
     try {
       fetchPokemon();
