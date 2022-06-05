@@ -10,9 +10,11 @@ import {
   Keyboard,
 } from 'react-native';
 import {User, UserDetails} from '../../../utils/mocks/userMock';
+import useAuth from '../../../hooks/useAuth';
 
 const LoginForm = () => {
   const [error, setError] = useState('');
+  const {login} = useAuth();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
@@ -24,12 +26,11 @@ const LoginForm = () => {
       if (username !== User.username || password !== User.password) {
         setError('The user or the password are not correct');
       } else {
-        console.log('Login success');
-        console.log(UserDetails);
+        login(UserDetails);
       }
     },
   });
-  const login = () => formik.handleSubmit();
+  const loginHandle = () => formik.handleSubmit();
   return (
     <View>
       <Text style={styles.title}>Log in </Text>
@@ -48,7 +49,7 @@ const LoginForm = () => {
         value={formik.values.password}
         onChangeText={text => formik.setFieldValue('password', text)}
       />
-      <Button title="Log in" onPress={login} />
+      <Button title="Log in" onPress={loginHandle} />
       {formik.errors.username && (
         <Text style={styles.error}>{formik.errors.username}</Text>
       )}
