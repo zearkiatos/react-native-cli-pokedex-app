@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {
@@ -9,13 +9,25 @@ import {
   Button,
   Keyboard,
 } from 'react-native';
+import {User, UserDetails} from '../../../utils/mocks/userMock';
 
 const LoginForm = () => {
+  const [error, setError] = useState('');
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     validationOnChange: false,
-    onSubmit: formValue => console.log(formValue),
+    onSubmit: formValue => {
+      setError('');
+      const {username, password} = formValue;
+
+      if (username !== User.username || password !== User.password) {
+        setError('The user or the password are not correct');
+      } else {
+        console.log('Login success');
+        console.log(UserDetails);
+      }
+    },
   });
   const login = () => formik.handleSubmit();
   return (
@@ -43,6 +55,7 @@ const LoginForm = () => {
       {formik.errors.password && (
         <Text style={styles.error}>{formik.errors.password}</Text>
       )}
+      {error !== '' && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
