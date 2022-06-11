@@ -6,6 +6,7 @@ import {save, exist} from '../../client/favoriteClient';
 
 const Favorite = ({id}) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [toggleFavorite, setToggleFavorite] = useState(false);
   const addFavorite = async () => {
     await save(id);
   };
@@ -14,6 +15,7 @@ const Favorite = ({id}) => {
     try {
       const isFavorite = await exist(id);
       setIsFavorite(isFavorite);
+      onToggleFavorite();
     } catch (ex) {
       setIsFavorite(false);
       console.error(`Error: ${ex.message}`);
@@ -22,11 +24,13 @@ const Favorite = ({id}) => {
 
   useEffect(() => {
     getFavorite();
-  }, [id]);
+  }, [id, toggleFavorite]);
 
   const removeFavorite = () => {
     console.log('Delete from favorites');
   };
+
+  const onToggleFavorite = () => setToggleFavorite(!toggleFavorite);
   const Icon = isFavorite ? IconFontawesone : IconFontawesone5;
   return (
     <Icon
