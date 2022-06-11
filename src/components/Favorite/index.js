@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {save, get} from '../../client/favoriteClient';
 
 const Favorite = ({id}) => {
-  const addFavorite = () => {
-    console.log(`Add to favorites ${id}`);
+  const addFavorite = async () => {
+    await save(id);
   };
   return (
     <Icon
