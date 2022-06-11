@@ -3,7 +3,7 @@ import config from '../config';
 
 const save = async id => {
   try {
-    const favorites = [];
+    const favorites = await get();
     favorites.push(id);
     await AsyncStorage.setItem(
       config.FAVORITE_STORAGE,
@@ -17,7 +17,8 @@ const save = async id => {
 const get = async () => {
   try {
     const response = await AsyncStorage.getItem(config.FAVORITE_STORAGE);
-    return response;
+    const dataParsed = JSON.parse(response);
+    return dataParsed.length ? JSON.parse(response) : [];
   } catch (ex) {
     throw ex;
   }
