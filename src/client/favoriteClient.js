@@ -24,4 +24,13 @@ const get = async () => {
   }
 };
 
-export {save, get};
+const exist = async id => {
+  try {
+    const favorites = await get();
+    return favorites.includes(id);
+  } catch (ex) {
+    throw ex;
+  }
+};
+
+export {save, get, exist};
