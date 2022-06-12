@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import IconFontawesone5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontawesone from 'react-native-vector-icons/FontAwesome';
-import {save, exist} from '../../client/favoriteClient';
+import {save, exist, remove} from '../../client/favoriteClient';
 
 const Favorite = ({id}) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -26,8 +26,13 @@ const Favorite = ({id}) => {
     getFavorite();
   }, [id, toggleFavorite]);
 
-  const removeFavorite = () => {
-    console.log('Delete from favorites');
+  const removeFavorite = async () => {
+    try {
+      await remove(id);
+      onToggleFavorite();
+    } catch (ex) {
+      console.error(`Error: ${ex.message}`);
+    }
   };
 
   const onToggleFavorite = () => setToggleFavorite(!toggleFavorite);

@@ -33,4 +33,17 @@ const exist = async id => {
   }
 };
 
-export {save, get, exist};
+const remove = async id => {
+  try {
+    const favorites = await get();
+    const newFavorites = favorites.filter(favorite => favorite !== id);
+    await AsyncStorage.setItem(
+      config.FAVORITE_STORAGE,
+      JSON.stringify(newFavorites),
+    );
+  } catch (ex) {
+    throw ex;
+  }
+};
+
+export {save, get, exist, remove};
