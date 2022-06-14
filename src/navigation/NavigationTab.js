@@ -1,10 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import FavoritesScreen from '../screens/FavoritesScreen';
-import PokedexNavigation from '../navigation/PokedexNavigation';
+import FavoriteNavigation from './FavoritesNavigation';
+import PokedexNavigation from './PokedexNavigation';
 import AccountScreen from '../screens/AccountScreen';
 import pokeballImage from '../assets/pokeball.png';
 
@@ -14,9 +13,10 @@ const NavigationTab = () => (
   <Tab.Navigator>
     <Tab.Screen
       name="Favorites"
-      component={FavoritesScreen}
+      component={FavoriteNavigation}
       options={{
-        tabBarLabel: 'Favorites',
+        tabBarLabel: 'My Favorites',
+        headerShown: false,
         tabBarIcon: ({color, size}) => (
           <Icon name="heart" color={color} size={size} />
         ),

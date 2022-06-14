@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {getPokemonById} from '../client/pokemonClient';
 import PokemonHeader from '../components/PokemonHeader';
@@ -52,7 +52,5 @@ const PokemonScreen = ({route: {params}, navigation}) => {
     )
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default PokemonScreen;
