@@ -5,6 +5,9 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import android.os.Bundle;
 
+import android.os.Bundle;
+import com.zoontek.rnbootsplash.RNBootSplash;
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -16,10 +19,11 @@ public class MainActivity extends ReactActivity {
     return "pokedex";
   }
 
-    @Override
-protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(null);
-}
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    RNBootSplash.init(R.drawable.bootsplash, MainActivity.this);
+  }
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and

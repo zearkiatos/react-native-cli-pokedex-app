@@ -10,7 +10,7 @@ import pokeballImage from '../assets/pokeball.png';
 const Tab = createBottomTabNavigator();
 
 const NavigationTab = () => (
-  <Tab.Navigator>
+  <Tab.Navigator initialRouteName="Pokedex">
     <Tab.Screen
       name="Favorites"
       component={FavoriteNavigation}
